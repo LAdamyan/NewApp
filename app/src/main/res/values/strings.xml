@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">NewApp</string>
+    <string name="image"><![CDATA[/v2/everything?q=tesla&from=2022-12-31&sortBy=publishedAt&apiKey=16f17b3107794837b22a1d340d35e528]]></string>
+</resources>
