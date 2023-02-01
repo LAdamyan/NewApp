@@ -15,10 +15,7 @@ public interface Images {
     public Call<SearchArticles> getArticles();
 
 
-    @GET("/v2/everything")
-    public Call<SearchArticles>searchArticle(
-            @Query("q")String param
-    );
+
 
 
 

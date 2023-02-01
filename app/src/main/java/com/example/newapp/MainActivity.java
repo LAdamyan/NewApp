@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         RetrofitSetup retrofitSetup = new RetrofitSetup();
         Images images = retrofitSetup.initRetrofit();
-        Call<SearchArticles> tesla = images.searchArticle("tesla");
+        Call<SearchArticles> tesla = images.getArticles();
 
         tesla.enqueue(new Callback<SearchArticles>() {
             @Override

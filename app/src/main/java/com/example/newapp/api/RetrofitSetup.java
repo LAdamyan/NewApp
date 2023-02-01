@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitSetup {
 
-    private static final String BASE_URL = "https://newsapi.org/";
+    private static final String BASE_URL = "https://newsapi.org";
 
   public   Images initRetrofit() {
 
