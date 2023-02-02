@@ -5,36 +5,20 @@ import java.util.List;
 
 public class Gallery {
 
-    private int image;
+    private String image;
 
-    public Gallery(int image) {
+    public Gallery(String image) {
         this.image = image;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
-        this.image = image;
-    }
+
 
     public static List<Gallery> getGalleryItems(){
         ArrayList<Gallery> galleryArrayList = new ArrayList<>();
-        galleryArrayList.add(new Gallery(R.drawable.image1));
-        galleryArrayList.add(new Gallery(R.drawable.image1));
-        galleryArrayList.add(new Gallery(R.drawable.image1));
-        galleryArrayList.add(new Gallery(R.drawable.image1));
-        galleryArrayList.add(new Gallery(R.drawable.image1));
-        galleryArrayList.add(new Gallery(R.drawable.image1));
-        galleryArrayList.add(new Gallery(R.drawable.image1));
-        galleryArrayList.add(new Gallery(R.drawable.image1));
-        galleryArrayList.add(new Gallery(R.drawable.image1));
-        galleryArrayList.add(new Gallery(R.drawable.image1));
-        galleryArrayList.add(new Gallery(R.drawable.image1));
-        galleryArrayList.add(new Gallery(R.drawable.image1));
-        galleryArrayList.add(new Gallery(R.drawable.image1));
-        galleryArrayList.add(new Gallery(R.drawable.image1));
 
          return  galleryArrayList;
     }
