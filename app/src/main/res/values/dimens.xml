@@ -4,5 +4,6 @@
     <dimen name="one_dp">1dp</dimen>
     <dimen name="_200dp">200dp</dimen>
     <dimen name="_150dp">150dp</dimen>
+    <dimen name="_250dp">250dp</dimen>
 
 </resources>

@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.newapp.api.Article;
 import com.example.newapp.api.Images;
@@ -28,21 +27,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-
     private ImageAdapter imageAdapter = new ImageAdapter();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        SwipeRefreshLayout swipeRefresh = findViewById(R.id.swipe_refresh);
-        swipeRefresh.setOnRefreshListener(this::initImagesFromApi);
-
-
         initRecycleView();
-        initImagesFromApi();
         fetchImagesFromApiAndSaveToRoom();
 
     }
@@ -53,8 +44,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(imageAdapter);
 
-
-
     }
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -62,27 +51,25 @@ public class MainActivity extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 
     }
-    private void fetchImagesFromApiAndSaveToRoom() {
+    private void  fetchImagesFromApiAndSaveToRoom() {
         if (isNetworkAvailable()) {
-            initImagesFromApi();
+        initImagesFromApi();
         } else {
             List<ArticlePhoto> articles = getArticlesFromRoom();
             if (articles != null && !articles.isEmpty()) {
-                saveToDb(articles);
-
+                ArrayList<Image> imageList = convertRoomImagesToDto(articles);
+                setDataToAdapter(imageList);
             }
         }
     }
-
     private List<ArticlePhoto> getArticlesFromRoom() {
         AppDatabase db = AppDatabase.getInstance(this);
         ArticleDao articleDao = db.getArticleDao();
         return articleDao.getArticle();
-
     }
 
 
-    private void initImagesFromApi() {
+    private void initImagesFromApi(){
         RetrofitSetup retrofitSetup = new RetrofitSetup();
         Images images = retrofitSetup.initRetrofit();
         Call<SearchArticles> tesla = images.getArticles();
@@ -90,43 +77,45 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<SearchArticles> call, @NonNull Response<SearchArticles> response) {
 
-                    SearchArticles searchArticles = response.body();
+                SearchArticles searchArticles = response.body();
                 if (response.body() != null) {
                     List<Article> articles = searchArticles.articles;
-                    convertApiImagesToDto(articles);
-
-
+                    ArrayList<Image> imageList = convertApiImagesToDto(articles);
+                    saveToDb(imageList);
+                    setDataToAdapter(imageList);
                 }
             }
             @Override
             public void onFailure(@NonNull Call<SearchArticles> call, Throwable t) {
                 System.out.println(t.getLocalizedMessage());
-
             }
-
         });
     }
+    private ArrayList<Image> convertApiImagesToDto(List<Article> articles) {
+        ArrayList<Image> imageList = new ArrayList<>();
+        for (Article article : articles) {
+            imageList.add(new Image(article.urlToImage));
+        }
+        return imageList;
+    }
+    private ArrayList<Image> convertRoomImagesToDto(List<ArticlePhoto> articles) {
+        ArrayList<Image> imageList = new ArrayList<>();
+        for (ArticlePhoto article : articles) {
+            imageList.add(new Image(article.getImageUrl()));
+        }
+        return imageList;
+    }
 
-    private void saveToDb(List<ArticlePhoto> galleries) {
+    private void saveToDb(List<Image> imageList) {
         AppDatabase db = AppDatabase.getInstance(this);
         ArticleDao articleDao = db.getArticleDao();
-
         List<ArticlePhoto> entity = new ArrayList<>();
-
-        for (ArticlePhoto dto : galleries) {
-            entity.add(new ArticlePhoto(0, dto.getImageUrl()));
+        for (Image image : imageList) {
+            entity.add(new ArticlePhoto(image.getUrl()));
         }
         articleDao.insertAll(entity);
-
     }
 
-    private void convertApiImagesToDto(List<Article> articles) {
-        ArrayList<Image> image1 = new ArrayList<>();
-        for (Article article : articles) {
-            image1.add(new Image(article.urlToImage));
-        }
-        setDataToAdapter(image1);
-    }
     private void setDataToAdapter(ArrayList<Image> image1) {
         imageAdapter.setImages(image1);
 

@@ -1,5 +1,6 @@
 package com.example.newapp.room;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -13,8 +14,7 @@ public class ArticlePhoto {
    @ColumnInfo(name = "imageToUrl")
     String imageUrl;
 
-    public ArticlePhoto(int id, String imageUrl) {
-        this.id = id;
+    public ArticlePhoto(@NonNull String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
@@ -27,7 +27,7 @@ public class ArticlePhoto {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return this.imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
