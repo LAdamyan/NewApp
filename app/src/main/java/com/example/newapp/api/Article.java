@@ -2,10 +2,8 @@ package com.example.newapp.api;
 
 import com.google.gson.annotations.SerializedName;
 
-
-
-public class  Article{
+public class Article {
     @SerializedName("urlToImage")
-    public   String urlToImage;
+    public String urlToImage;
 
 }

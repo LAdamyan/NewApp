@@ -14,9 +14,9 @@ import com.example.newapp.api.Article;
 import com.example.newapp.api.Images;
 import com.example.newapp.api.RetrofitSetup;
 import com.example.newapp.api.SearchArticles;
+import com.example.newapp.dto.Image;
 import com.example.newapp.room.AppDatabase;
 import com.example.newapp.room.ArticleDao;
-import com.example.newapp.dto.Image;
 import com.example.newapp.room.ArticlePhoto;
 
 import java.util.ArrayList;
@@ -45,15 +45,17 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(imageAdapter);
 
     }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 
     }
-    private void  fetchImagesFromApiAndSaveToRoom() {
+
+    private void fetchImagesFromApiAndSaveToRoom() {
         if (isNetworkAvailable()) {
-        initImagesFromApi();
+            initImagesFromApi();
         } else {
             List<ArticlePhoto> articles = getArticlesFromRoom();
             if (articles != null && !articles.isEmpty()) {
@@ -62,14 +64,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     private List<ArticlePhoto> getArticlesFromRoom() {
         AppDatabase db = AppDatabase.getInstance(this);
         ArticleDao articleDao = db.getArticleDao();
         return articleDao.getArticle();
     }
 
-
-    private void initImagesFromApi(){
+    private void initImagesFromApi() {
         RetrofitSetup retrofitSetup = new RetrofitSetup();
         Images images = retrofitSetup.initRetrofit();
         Call<SearchArticles> tesla = images.getArticles();
@@ -85,12 +87,14 @@ public class MainActivity extends AppCompatActivity {
                     setDataToAdapter(imageList);
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<SearchArticles> call, Throwable t) {
                 System.out.println(t.getLocalizedMessage());
             }
         });
     }
+
     private ArrayList<Image> convertApiImagesToDto(List<Article> articles) {
         ArrayList<Image> imageList = new ArrayList<>();
         for (Article article : articles) {
@@ -98,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return imageList;
     }
+
     private ArrayList<Image> convertRoomImagesToDto(List<ArticlePhoto> articles) {
         ArrayList<Image> imageList = new ArrayList<>();
         for (ArticlePhoto article : articles) {
@@ -118,9 +123,5 @@ public class MainActivity extends AppCompatActivity {
 
     private void setDataToAdapter(ArrayList<Image> image1) {
         imageAdapter.setImages(image1);
-
-
     }
-
-
 }

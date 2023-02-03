@@ -10,8 +10,7 @@ public class ArticlePhoto {
 
     @PrimaryKey(autoGenerate = true)
     int id;
-
-   @ColumnInfo(name = "imageToUrl")
+    @ColumnInfo(name = "imageToUrl")
     String imageUrl;
 
     public ArticlePhoto(@NonNull String imageUrl) {
@@ -29,7 +28,6 @@ public class ArticlePhoto {
     public String getImageUrl() {
         return this.imageUrl;
     }
-
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }

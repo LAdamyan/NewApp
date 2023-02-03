@@ -18,7 +18,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private ArrayList<Image> imageArrayList = new ArrayList<>();
 
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,12 +36,11 @@ public class ImageAdapter extends RecyclerView.Adapter<ViewHolder> {
         return imageArrayList == null ? 0 : imageArrayList.size();
     }
 
-    public void setImages(List<Image>images) {
+    public void setImages(List<Image> images) {
         this.imageArrayList.clear();
         this.imageArrayList.addAll(images);
         notifyDataSetChanged();
     }
-
 }
 
 class ViewHolder extends RecyclerView.ViewHolder {

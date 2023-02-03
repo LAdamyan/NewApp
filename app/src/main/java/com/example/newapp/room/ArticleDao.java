@@ -5,8 +5,6 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.newapp.api.Article;
-
 import java.util.List;
 
 @Dao
@@ -14,13 +12,10 @@ public interface ArticleDao {
 
     @Query("SELECT * FROM article_photo ")
     List<ArticlePhoto> getArticle();
-
     @Insert
     void insert(ArticlePhoto articles);
-
     @Insert
     void insertAll(List<ArticlePhoto> articles);
-
     @Delete
     void delete(ArticlePhoto articles);
 
