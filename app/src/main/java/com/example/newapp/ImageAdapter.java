@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.newapp.dto.Image;
 
 import java.util.ArrayList;
@@ -53,6 +54,9 @@ class ViewHolder extends RecyclerView.ViewHolder {
     void initData(Image image) {
 
         AppCompatImageView imageView = itemView.findViewById(R.id.image);
-        Glide.with(imageView.getContext()).load(image.url).into(imageView);
+        Glide.with(imageView.getContext())
+                .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.loading).error(R.drawable.error))
+                .load(image.url)
+                .into(imageView);
     }
 }

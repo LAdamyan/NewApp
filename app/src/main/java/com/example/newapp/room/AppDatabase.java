@@ -7,7 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 @Database(entities = {ArticlePhoto.class},
-                     version = 5
+        version = 5
 )
 public abstract class AppDatabase extends RoomDatabase {
 

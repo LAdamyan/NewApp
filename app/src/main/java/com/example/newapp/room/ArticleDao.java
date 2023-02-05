@@ -12,10 +12,13 @@ public interface ArticleDao {
 
     @Query("SELECT * FROM article_photo ")
     List<ArticlePhoto> getArticle();
+
     @Insert
     void insert(ArticlePhoto articles);
+
     @Insert
     void insertAll(List<ArticlePhoto> articles);
+
     @Delete
     void delete(ArticlePhoto articles);
 

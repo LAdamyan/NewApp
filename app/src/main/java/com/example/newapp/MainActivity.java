@@ -27,6 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+
     private ImageAdapter imageAdapter = new ImageAdapter();
 
     @Override
@@ -121,7 +122,8 @@ public class MainActivity extends AppCompatActivity {
         articleDao.insertAll(entity);
     }
 
-    private void setDataToAdapter(ArrayList<Image> image1) {
-        imageAdapter.setImages(image1);
+    private void setDataToAdapter(ArrayList<Image> imageArrayList) {
+        imageAdapter.setImages(imageArrayList);
     }
 }
+
